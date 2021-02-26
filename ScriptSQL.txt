@@ -1,0 +1,36 @@
+create database loja
+default character set utf8
+default collate utf8_general_ci;
+
+use loja;
+
+create table funcionarios (
+
+Codigo int not null auto_increment,
+Nome varchar(50) not null,
+Nascimento date not null,
+Sexo varchar (11) not null,
+CPF int (11) not null,
+Cargo varchar(15) not null,
+Salario float default '1.100',
+primary key(Codigo)
+
+) default charset = utf8;
+
+alter table funcionarios
+add column CPF int;
+
+insert into funcionarios
+(Codigo, Nome, Nascimento, Sexo, Cargo, Salario, CPF)
+values
+(default, 'André Lopes', '1978/04/21', 'Masculino', 'Vendedor', default,'8900'),
+(default, 'Raquel Silva Mendez', '1997/04/05', 'Feminino', 'Vendedora', default,'3134'),
+(default, 'Igor Leite Santos', '1999/10/15', 'Masculino', 'Vendedor', default,'3256'),
+(default, 'Fernando Bruno', '1990/03/28', 'Masculino', 'Atendente', 1.200,'0098'),
+(default, 'Leticia Alves', '1992/04/11', 'Feminino', 'Atendente', 1.200,'9988'),
+(default, 'Debora Souza Lira', '1993/09/22', 'Feminino', 'Atendente', 1.200,'5467');
+
+insert into funcionarios
+(Codigo, Nome, Nascimento, Sexo, Cargo, Salario, CPF)
+values
+(default, 'Dolares Costa', '1970/09/22', 'Feminino', 'Faxineira',default, '39906');
