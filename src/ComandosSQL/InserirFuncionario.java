@@ -6,115 +6,82 @@ import java.text.SimpleDateFormat;
 import ConexaoBanco.Conexao;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.Scanner;
 
 public class InserirFuncionario {
 
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-    private Connection conn = null;
-    private PreparedStatement st = null;
-
-    private int codigo;
     private String nome;
     private Date nascimento;
     private String sexo;
     private String cargo;
     private float salario;
     private int cpf;
+    
+    private String nasci;
 
-    public InserirFuncionario(int codigo, String nome, Date nascimento, String sexo, String cargo, float salario, int cpf) {
-        this.codigo = codigo;
-        this.nome = nome;
-        this.nascimento = nascimento;
-        this.sexo = sexo;
-        this.cargo = cargo;
-        this.salario = salario;
-        this.cpf = cpf;
+    public InserirFuncionario() {
     }
 
-    public SimpleDateFormat getSdf() {
-        return sdf;
-    }
-
-    public void setSdf(SimpleDateFormat sdf) {
-        this.sdf = sdf;
-    }
-
-    public Connection getConn() {
-        return conn;
-    }
-
-    public void setConn(Connection conn) {
-        this.conn = conn;
-    }
-
-    public PreparedStatement getSt() {
-        return st;
-    }
-
-    public void setSt(PreparedStatement st) {
-        this.st = st;
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Date getNascimento() {
-        return nascimento;
-    }
-
-    public void setNascimento(Date nascimento) {
-        this.nascimento = nascimento;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
-    public String getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
-
-    public float getSalario() {
-        return salario;
-    }
-
-    public void setSalario(float salario) {
-        this.salario = salario;
-    }
-
-    public int getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(int cpf) {
-        this.cpf = cpf;
-    }
-
-    public void InserirDados() throws ParseException, SQLException {
+    public void funcionario() {
 
         try {
+
+            Scanner teclado = new Scanner(System.in);
+
+            System.out.println("----------------------------");
+            System.out.println("Agora vamos inserir um funcionario"
+                    + " ao banco");
+            System.out.println();
+            System.out.println("Digite o nome do funcionario: ");
+            nome = teclado.next();
+            System.out.println("Digite a data de nascimento: ");
+            nasci = teclado.next();
+            System.out.println("Digite o CPF: ");
+            cpf = teclado.nextInt();
+            System.out.println("Digite o cargo: ");
+            cargo = teclado.next();
+            System.out.println("Digite o sexo: ");
+            sexo = teclado.next();
+            System.out.println("Digite o salario: ");
+            salario = teclado.nextFloat();
+            System.out.println();
+            System.out.println("----------------------------");
+
+        } catch (Exception e) {
+            System.out.println("Você digitou um campo incorretamente");
+        }
+    }
+
+    private void converterData() {
+
+        try {
+
+            String converter_data = nasci;
+
+            DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+            java.util.Date dt = df.parse(converter_data);
+
+            java.sql.Date da;
+            da = new java.sql.Date(dt.getTime());
+
+            setNascimento(da);
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
+    }
+
+    private void InserirDados() throws ParseException, SQLException {
+
+        try {
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            Connection conn;
+            PreparedStatement st;
+
             conn = Conexao.abrirBanco();
 
             st = conn.prepareStatement("insert into funcionarios"
@@ -132,15 +99,61 @@ public class InserirFuncionario {
             st.setInt(7, cpf);
 
             st.executeUpdate();
-
+            
         } catch (SQLException e) {
             throw new ComandoException(e.getMessage());
         } finally {
-            st.close();
             Conexao.fecharBanco();
-
         }
 
+    }
+
+    private String getNome() {
+        return nome;
+    }
+
+    private void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    private Date getNascimento() {
+        return nascimento;
+    }
+
+    public void setNascimento(Date nascimento) {
+        this.nascimento = nascimento;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    private void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    private String getCargo() {
+        return cargo;
+    }
+
+    private void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    private float getSalario() {
+        return salario;
+    }
+
+    private void setSalario(float salario) {
+        this.salario = salario;
+    }
+
+    private int getCpf() {
+        return cpf;
+    }
+
+    private void setCpf(int cpf) {
+        this.cpf = cpf;
     }
 
 }
