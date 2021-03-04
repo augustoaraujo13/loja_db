@@ -1,6 +1,7 @@
 package lojabd;
 
 import ComandosSQL.DeletarFuncionario;
+import ComandosSQL.InserirFuncionario;
 import ComandosSQL.MostrarTabela;
 
 public class Loja {
@@ -9,9 +10,9 @@ public class Loja {
 
         MostrarTabela mt = new MostrarTabela();
         DeletarFuncionario df = new DeletarFuncionario();
-
-        df.apagar();
+        InserirFuncionario ifu = new InserirFuncionario();
         
-        //mt.Tabela();
+        ifu.funcionario();
+        
     }
 }
