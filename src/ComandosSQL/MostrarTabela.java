@@ -8,13 +8,13 @@ import java.sql.Statement;
 
 public class MostrarTabela {
 
-    Connection conn = null;
-    Statement st = null;
-    ResultSet rs = null;
-
     public void Tabela() {
 
         try {
+
+            Connection conn;
+            Statement st;
+            ResultSet rs;
 
             conn = Conexao.abrirBanco();
             st = conn.createStatement();
@@ -38,9 +38,6 @@ public class MostrarTabela {
             e.printStackTrace();
 
         } finally {
-
-            Conexao.fecharResultSet(rs);
-            Conexao.fecharStatement(st);
             Conexao.fecharBanco();
         }
 
