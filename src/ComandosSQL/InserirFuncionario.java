@@ -35,15 +35,15 @@ public class InserirFuncionario {
                     + " ao banco");
             System.out.println();
             System.out.println("Digite o nome do funcionario: ");
-            nome = teclado.next();
+            nome = teclado.next().trim();
             System.out.println("Digite a data de nascimento: ");
             nasci = teclado.next();
             System.out.println("Digite o CPF: ");
             cpf = teclado.nextInt();
             System.out.println("Digite o cargo: ");
-            cargo = teclado.next();
+            cargo = teclado.next().trim();
             System.out.println("Digite o sexo: ");
-            sexo = teclado.next();
+            sexo = teclado.next().trim();
             System.out.println("Digite o salario: ");
             salario = teclado.nextFloat();
             System.out.println();
